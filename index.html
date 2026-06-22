@@ -14,11 +14,13 @@
     }
 
     body{
-      height:100vh;
+      min-height:100vh;
       display:flex;
+      flex-wrap:wrap;
       align-items:center;
       justify-content:center;
       gap:20px;
+      padding:20px;
       background:#111;
     }
 
@@ -37,6 +39,11 @@
         inset 0 2px 8px rgba(255,255,255,0.2);
     }
 
+    .pad:active{
+      transform:scale(0.95);
+      filter:brightness(1.2);
+    }
+
     .fah{
       background:linear-gradient(145deg,#ff3c3c,#b30000);
     }
@@ -49,9 +56,8 @@
       background:linear-gradient(145deg,#00c76f,#007a44);
     }
 
-    .pad:active{
-      transform:scale(0.95);
-      filter:brightness(1.2);
+    .naruto{
+      background:linear-gradient(145deg,#ff9800,#d35400);
     }
   </style>
 </head>
@@ -69,28 +75,43 @@
     AMONG US
   </button>
 
+  <button class="pad naruto" onclick="tocar('naruto')">
+    NARUTO
+  </button>
+
   <audio id="fah" src="fah.mp3"></audio>
   <audio id="wow" src="wow.mp3"></audio>
   <audio id="among" src="among-us.mp3"></audio>
+  <audio id="naruto" src="musica-triste-de-naruto.mp3"></audio>
 
   <script>
     function tocar(id) {
       const audio = document.getElementById(id);
+
+      // Permite tocar repetidamente sem esperar terminar
+      audio.pause();
       audio.currentTime = 0;
       audio.play();
     }
 
     document.addEventListener("keydown", (e) => {
+      switch(e.key.toLowerCase()) {
+        case "w":
+          tocar("wow");
+          break;
+
+        case "a":
+          tocar("among");
+          break;
+
+        case "n":
+          tocar("naruto");
+          break;
+      }
+
       if (e.code === "Space") {
+        e.preventDefault();
         tocar("fah");
-      }
-
-      if (e.key.toLowerCase() === "w") {
-        tocar("wow");
-      }
-
-      if (e.key.toLowerCase() === "a") {
-        tocar("among");
       }
     });
   </script>
