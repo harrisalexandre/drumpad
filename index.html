@@ -18,23 +18,35 @@
       display:flex;
       align-items:center;
       justify-content:center;
+      gap:20px;
       background:#111;
     }
 
     .pad{
-      width:320px;
-      height:320px;
+      width:220px;
+      height:220px;
       border:none;
       border-radius:30px;
-      background:linear-gradient(145deg,#ff3c3c,#b30000);
       color:white;
       font-size:2rem;
       font-weight:bold;
       cursor:pointer;
+      transition:0.1s;
       box-shadow:
         0 10px 30px rgba(0,0,0,0.4),
         inset 0 2px 8px rgba(255,255,255,0.2);
-      transition:0.1s;
+    }
+
+    .fah{
+      background:linear-gradient(145deg,#ff3c3c,#b30000);
+    }
+
+    .wow{
+      background:linear-gradient(145deg,#3c8cff,#003db3);
+    }
+
+    .among{
+      background:linear-gradient(145deg,#00c76f,#007a44);
     }
 
     .pad:active{
@@ -45,27 +57,40 @@
 </head>
 <body>
 
-  <button class="pad" id="drumPad">
+  <button class="pad fah" onclick="tocar('fah')">
     FAHH
   </button>
 
-  <audio id="audio" src="fah.mp3"></audio>
+  <button class="pad wow" onclick="tocar('wow')">
+    WOW
+  </button>
+
+  <button class="pad among" onclick="tocar('among')">
+    AMONG US
+  </button>
+
+  <audio id="fah" src="fah.mp3"></audio>
+  <audio id="wow" src="wow.mp3"></audio>
+  <audio id="among" src="among-us.mp3"></audio>
 
   <script>
-    const pad = document.getElementById("drumPad");
-    const audio = document.getElementById("audio");
-
-    function tocarSom() {
+    function tocar(id) {
+      const audio = document.getElementById(id);
       audio.currentTime = 0;
       audio.play();
     }
 
-    pad.addEventListener("click", tocarSom);
-
-    // tecla espaço
     document.addEventListener("keydown", (e) => {
-      if(e.code === "Space"){
-        tocarSom();
+      if (e.code === "Space") {
+        tocar("fah");
+      }
+
+      if (e.key.toLowerCase() === "w") {
+        tocar("wow");
+      }
+
+      if (e.key.toLowerCase() === "a") {
+        tocar("among");
       }
     });
   </script>
